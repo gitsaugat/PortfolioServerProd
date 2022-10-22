@@ -7,9 +7,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d70r781ic#hxd_0*&wassco))v&p$kvdkjau)xi0&)5-^x^*@f'
 
 
+CORS_ALLOW_ALL_ORIGINS = True
+
+
 DEBUG = True
 
-ALLOWED_HOSTS = ['saugatsiwakoti.pythonanywhere.com']
+ALLOWED_HOSTS = ['saugatsiwakoti.pythonanywhere.com', 'localhost']
 
 
 INSTALLED_APPS = [
@@ -20,14 +23,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'blog'
+    'blog',
+    "corsheaders",
+    'rest_framework_simplejwt'
 ]
 REST_FRAMEWORK = {
 
 
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+
 }
 
 MIDDLEWARE = [
@@ -38,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'server.urls'
